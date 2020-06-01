@@ -2,6 +2,8 @@ package com.example.advancedrecyclerview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -30,6 +32,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        TODO("Not yet implemented")
+        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+
+        viewModel.colourItems.observe(this, Observer {
+            colours.clear()
+            colours.addAll(it)
+            colourAdapter.notifyDataSetChanged()
+        })
     }
 }
